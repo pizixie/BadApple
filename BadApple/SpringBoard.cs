@@ -9,38 +9,15 @@ namespace BadApple
 {
     public class SpringBoard
     {
-        IntPtr fd;
-        object sync;
+        IntPtr sd;
+        object sync = new object();
 
-        public SpringBoard(IntPtr fd)
+        public SpringBoard(IntPtr sd)
         {
-            this.fd = fd;
+            this.sd = sd;
         }
 
-        public byte[] DownloadIcon(string bundle_id)
-        {
-            lock (sync)
-            {
-                PListDict root = new PListDict();
-                root.Add("command", new PListString("getIconPNGData"));
-                root.Add("bundleId", new PListString(bundle_id));
-
-                PListRoot out_plist = new PListRoot();
-                out_plist.Format = PListFormat.Xml;
-                out_plist.Root = root;
-
-                PropertyListService.Send(fd, out_plist);
-
-                PListRoot in_plist = PropertyListService.Receive(fd);
-
-                var dict = in_plist.Root as PListDict;
-                var png_data = dict["pngData"] as PListData;
-
-                return png_data.Value;
-            }
-        }
-
-        public List<IconState> GetIconStates()
+        public PListRoot GetIconState()
         {
             lock (sync)
             {
@@ -52,102 +29,47 @@ namespace BadApple
                 send_plist.Format = PListFormat.Xml;
                 send_plist.Root = root;
 
-                PropertyListService.Send(fd, send_plist);
+                PropertyListService.Send(sd, send_plist);
 
-                PListRoot recv_plist = PropertyListService.Receive(fd);
+                PListRoot recv_plist = PropertyListService.Receive(sd);
 
-                var states = Plist2IconStateList(recv_plist);
-
-                return states;
+                return recv_plist;
             }
         }
 
-        private List<IconState> Plist2IconStateList(PListRoot plist)
+        public void SetIconState()
         {
-            List<IconState> list = new List<IconState>();
-
-            PListArray root = plist.Root as PListArray;
-            //root[0]    -----底部四项应用
-            //root[1]    -----首页
-            //root[2]    -----应用第一页
-            //root[3]    -----应用第二页
-
-            //底部四项应用
-            RecGetIconState(list, root);
-
-            return list;
+            throw new NotImplementedException();
         }
 
-        private void RecGetIconState(List<IconState> list, IPListElement node)
+        public PListRoot GetIconPNGData(string bundle_id)
         {
-            if (node is PListArray)
+            lock (sync)
             {
-                foreach (var child in node as PListArray)
-                {
-                    RecGetIconState(list, child);
-                }
-            }
-            else
-            {
-                var dict = node as PListDict;
+                PListDict root = new PListDict();
+                root.Add("command", new PListString("getIconPNGData"));
+                root.Add("bundleId", new PListString(bundle_id));
 
-                IPListElement list_type;
-                if (dict.TryGetValue("listType", out list_type))
-                {
-                    var icon_list = dict["iconLists"] as PListArray;
+                PListRoot out_plist = new PListRoot();
+                out_plist.Format = PListFormat.Xml;
+                out_plist.Root = root;
 
-                    RecGetIconState(list, icon_list);
-                }
-                else
-                {
-                    list.Add(PlistDict2IconState(dict));
-                }
+                PropertyListService.Send(sd, out_plist);
+
+                PListRoot in_plist = PropertyListService.Receive(sd);
+
+                return in_plist;
             }
         }
 
-        private IconState PlistDict2IconState(PListDict dict)
+        public int GetInterfaceOrientation()
         {
-            IconState icon = new IconState();
-            icon.BundleId = GetPlistStringValue(dict, "bundleIdentifier");
-            icon.DisplayId = GetPlistStringValue(dict, "displayIdentifier");
-            icon.DisplayName = GetPlistStringValue(dict, "displayName");
-            icon.IconModDate = GetPlistDateValue(dict, "iconModDate");
-            icon.BundleVersion = GetPlistStringValue(dict, "bundleVersion");
-
-            return icon;
+            throw new NotImplementedException();
         }
 
-        private string GetPlistStringValue(PListDict dic, string key)
+        public PListRoot GetHomeScreenWallpaperPNGData()
         {
-            IPListElement v;
-            if (dic.TryGetValue(key, out v))
-            {
-                var temp = v as PListString;
-                return temp.Value;
-            }
-
-            return null;
+            throw new NotImplementedException();
         }
-
-        private DateTime? GetPlistDateValue(PListDict dic, string key)
-        {
-            IPListElement ele;
-            if (dic.TryGetValue(key, out ele))
-            {
-                var v = ele as PListDate;
-                return v.Value;
-            }
-
-            return null;
-        }
-    }
-
-    public class IconState
-    {
-        public string DisplayId { get; set; }
-        public string DisplayName { get; set; }
-        public DateTime? IconModDate { get; set; }
-        public string BundleVersion { get; set; }
-        public string BundleId { get; set; }
     }
 }
