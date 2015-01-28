@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadApple", "BadApple\BadApp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ideviceinfo", "ideviceinfo\ideviceinfo.csproj", "{0A67D6B4-BAC6-47B5-90F2-CD26B6830356}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ispringboard", "ispringboard\ispringboard.csproj", "{EE042C98-5208-4936-B993-D4D6ABE50ECB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ideviceinstaller", "ideviceinstaller\ideviceinstaller.csproj", "{86469B42-DC51-4C8C-957F-C77B957446DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{0A67D6B4-BAC6-47B5-90F2-CD26B6830356}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A67D6B4-BAC6-47B5-90F2-CD26B6830356}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A67D6B4-BAC6-47B5-90F2-CD26B6830356}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE042C98-5208-4936-B993-D4D6ABE50ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE042C98-5208-4936-B993-D4D6ABE50ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE042C98-5208-4936-B993-D4D6ABE50ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE042C98-5208-4936-B993-D4D6ABE50ECB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86469B42-DC51-4C8C-957F-C77B957446DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86469B42-DC51-4C8C-957F-C77B957446DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86469B42-DC51-4C8C-957F-C77B957446DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86469B42-DC51-4C8C-957F-C77B957446DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

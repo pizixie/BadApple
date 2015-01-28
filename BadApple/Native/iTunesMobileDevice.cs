@@ -34,5 +34,11 @@ namespace BadApple.Native
 
         [DllImport("iTunesMobileDevice.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern int AMDeviceNotificationSubscribe(DeviceNotificationCallback callback, uint unused1, uint unused2, uint unused3, out IntPtr am_device_notification_ptr);
+
+        [DllImport("iTunesMobileDevice.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int AMDeviceInstallApplication(IntPtr sd_ip, IntPtr path, IntPtr option, InstallAppCallback callback, IntPtr unknown1);
+
+        [DllImport("iTunesMobileDevice.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern int AMDeviceUninstallApplication(IntPtr sd_ip, IntPtr bundleIdentifier, IntPtr option, IntPtr unknown0, IntPtr unknown1);
     }
 }

@@ -65,9 +65,11 @@ namespace BadApple
             this.Connect();
             this.StartSession();
 
+            CFString cf_name = new CFString(name);
+
             IntPtr sd = IntPtr.Zero;
 
-            var i = iTunesMobileDevice.AMDeviceStartService(this.device, IntPtr.Zero, out sd, IntPtr.Zero);
+            var i = iTunesMobileDevice.AMDeviceStartService(this.device, cf_name.Handle, out sd, IntPtr.Zero);
 
             if (i != 0)
                 throw new LockdownException("无法启动服务");
@@ -83,7 +85,7 @@ namespace BadApple
             CFString cf_domain = new CFString(domain);
             CFString cf_key = new CFString(key);
 
-            var cf_value = iTunesMobileDevice.AMDeviceCopyValue(device, cf_domain, cf_key);
+            var cf_value = iTunesMobileDevice.AMDeviceCopyValue(device, cf_domain.Handle, cf_key.Handle);
 
             var value = new CFString(cf_value);
 
@@ -98,7 +100,7 @@ namespace BadApple
 
             CFString cf_key = new CFString(key);
 
-            var cf_value = iTunesMobileDevice.AMDeviceCopyValue(device,IntPtr.Zero, cf_key);
+            var cf_value = iTunesMobileDevice.AMDeviceCopyValue(device, IntPtr.Zero, cf_key.Handle);
 
             var value = new CFString(cf_value);
 
@@ -106,6 +108,15 @@ namespace BadApple
             this.Disconnect();
 
             return value;
+        }
+    }
+
+    public class LockdownException : Exception
+    {
+        public LockdownException(string message)
+            : base(message)
+        {
+
         }
     }
 }

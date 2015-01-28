@@ -73,12 +73,6 @@ namespace BadApple
                 byte[] content = new byte[length];
                 Marshal.Copy(p_content, content, 0, length);
 
-                using (FileStream fs = new FileStream("a.plist", FileMode.OpenOrCreate))
-                {
-                    fs.Write(content, 0, content.Length);
-                    fs.Flush();
-                }
-
                 PListRoot plist;
                 using (MemoryStream stream = new MemoryStream(content))
                 {
@@ -100,5 +94,14 @@ namespace BadApple
 
         [DllImport("ws2_32.dll", CallingConvention = CallingConvention.StdCall)]
         private static extern int recv(IntPtr s, IntPtr buf, int len, int flags);
+    }
+
+    public class PlistServiceException : Exception
+    {
+        public PlistServiceException(string msg)
+            : base(msg)
+        {
+
+        }
     }
 }
