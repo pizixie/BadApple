@@ -62,7 +62,7 @@ namespace BadApple
                 int offset = 0;
                 while (offset < length)
                 {
-                    bytes = recv(fd, new IntPtr(p_content.ToInt32() + offset), length - offset, 0);
+                    bytes = recv(fd, new IntPtr((long)p_content + offset), length - offset, 0);
 
                     if (bytes <= 0)
                         throw new PlistServiceException("接收数据失败");
