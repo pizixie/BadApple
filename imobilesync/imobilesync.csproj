@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86469B42-DC51-4C8C-957F-C77B957446DF}</ProjectGuid>
+    <ProjectGuid>{117C8C32-3843-486A-A74A-183646C85DE8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ideviceinstaller</RootNamespace>
-    <AssemblyName>ideviceinstaller</AssemblyName>
+    <RootNamespace>imobilesync</RootNamespace>
+    <AssemblyName>imobilesync</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreFoundation-wrapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\CoreFoundation\Project\bin\Debug\CoreFoundation-wrapper.dll</HintPath>
-    </Reference>
     <Reference Include="PList">
       <HintPath>..\packages\plist.net.1.0\lib\Net35\PList.dll</HintPath>
     </Reference>

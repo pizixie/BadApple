@@ -39,12 +39,30 @@ namespace ispringboard
             plist_state.Save(file_state, PListFormat.Xml);
             Process.Start("IEXPLORE.EXE", file_state);
 
-            //PNG
+            //ICON
             var plist_png = sbs.GetIconPNGData("com.baidu.map");
 
             var file_png = System.IO.Path.GetTempFileName() + ".xml";
             plist_png.Save(file_png, PListFormat.Xml);
             Process.Start("IEXPLORE.EXE", file_png);
+
+            //墙纸
+            var plist_wallpaper = sbs.GetHomeScreenWallpaperPNGData();
+
+            var file_wallpaper = System.IO.Path.GetTempFileName() + ".png";
+
+            using (var stream_wallpaper = new FileStream(file_wallpaper, FileMode.Create))
+            {
+                var dict = plist_wallpaper.Root as PListDict;
+                var png = (dict["pngData"] as PListData).Value;
+
+                stream_wallpaper.Write(png, 0, png.Length);
+            }
+            Process.Start("IEXPLORE.EXE", file_wallpaper);
+
+            //界面方向
+            var s = sbs.GetInterfaceOrientation();
+            Console.WriteLine(s);
 
             Console.ReadLine();
         }

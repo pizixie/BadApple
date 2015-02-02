@@ -47,7 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceLinkService.cs" />
     <Compile Include="InstallationProxy.cs" />
+    <Compile Include="MobileSync.cs" />
     <Compile Include="Native\AMDevice.cs" />
     <Compile Include="Native\AMDeviceNotificationCallbackInfo.cs" />
     <Compile Include="DeviceMonitor.cs" />

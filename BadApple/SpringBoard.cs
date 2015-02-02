@@ -62,14 +62,56 @@ namespace BadApple
             }
         }
 
-        public int GetInterfaceOrientation()
+        public InterfaceOrientation GetInterfaceOrientation()
         {
-            throw new NotImplementedException();
+            lock (sync)
+            {
+                PListDict dict = new PListDict();
+                dict.Add("command", new PListString("getInterfaceOrientation"));
+
+                PListRoot send = new PListRoot();
+                send.Format = PListFormat.Xml;
+                send.Root = dict;
+
+                PropertyListService.Send(sd, send);
+
+                var recv = PropertyListService.Receive(sd);
+
+                var content = recv.Root as PListDict;
+                var v = content["interfaceOrientation"] as PListInteger;
+
+                return (InterfaceOrientation)v.Value;
+            }
         }
 
         public PListRoot GetHomeScreenWallpaperPNGData()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            lock (sync)
+            {
+                PListDict dict = new PListDict();
+                dict.Add("command", new PListString("getHomeScreenWallpaperPNGData"));
+
+                PListRoot send = new PListRoot();
+                send.Format = PListFormat.Xml;
+                send.Root = dict;
+
+                PropertyListService.Send(sd, send);
+
+                PListRoot recv = PropertyListService.Receive(sd);
+
+                return recv;
+            }
+        }
+
+        public enum InterfaceOrientation
+        {
+            UNKNOWN = 0,
+            PORTRAIT = 1,
+            PORTRAIT_UPSIDE_DOWN = 2,
+            LANDSCAPE_RIGHT = 3,
+            LANDSCAPE_LEFT = 4
         }
     }
+
 }

@@ -40,7 +40,7 @@ namespace ideviceinstaller
             Process.Start("IEXPLORE.EXE", temp_file);
 
             //卸载
-            var id = "com.baidu.BaiduMobile";
+            var id = "com.fengbangshou.fbs";
             client_ip.UninstallApplication(id);
 
             //安装
