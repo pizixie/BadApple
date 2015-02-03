@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace ispringboard
@@ -33,30 +32,29 @@ namespace ispringboard
             var sbs = new SpringBoard(sd_sbs);
 
             //桌面状态
-            var plist_state = sbs.GetIconState();
-
-            var file_state = System.IO.Path.GetTempFileName() + ".xml";
-            plist_state.Save(file_state, PListFormat.Xml);
-            Process.Start("IEXPLORE.EXE", file_state);
+            var state = sbs.GetIconState();
+            
+            var state_xml = System.IO.Path.GetTempFileName() + ".xml";
+            state.WriteXml(System.Xml.XmlWriter.Create(state_xml));
+            Process.Start("IEXPLORE.EXE", state_xml);
 
             //ICON
-            var plist_png = sbs.GetIconPNGData("com.baidu.map");
+            var png = sbs.GetIconPNGData("com.baidu.map");
 
-            var file_png = System.IO.Path.GetTempFileName() + ".xml";
-            plist_png.Save(file_png, PListFormat.Xml);
-            Process.Start("IEXPLORE.EXE", file_png);
+            var png_xml = System.IO.Path.GetTempFileName() + ".xml";
+            png.WriteXml(System.Xml.XmlWriter.Create(png_xml));
+            Process.Start("IEXPLORE.EXE", png_xml);
 
             //墙纸
-            var plist_wallpaper = sbs.GetHomeScreenWallpaperPNGData();
+            var wallpaper = sbs.GetHomeScreenWallpaperPNGData();
 
             var file_wallpaper = System.IO.Path.GetTempFileName() + ".png";
 
             using (var stream_wallpaper = new FileStream(file_wallpaper, FileMode.Create))
             {
-                var dict = plist_wallpaper.Root as PListDict;
-                var png = (dict["pngData"] as PListData).Value;
-
-                stream_wallpaper.Write(png, 0, png.Length);
+                var wallpaper_png = wallpaper["pngData"] as PListData;
+                
+                stream_wallpaper.Write(wallpaper_png.Value, 0, wallpaper_png.Value.Length);
             }
             Process.Start("IEXPLORE.EXE", file_wallpaper);
 

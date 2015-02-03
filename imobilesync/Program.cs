@@ -29,7 +29,7 @@ namespace imobilesync
             var sd_sync = lockdown.StartService("com.apple.mobilesync");
 
             var dl = new DeviceLinkService(sd_sync);
-            var recv = dl.VersionExchange(300, 100);
+            dl.device_link_service_version_exchange(300, 100);
         }
 
         static void DeviceMonitor_Disconnected(object sender, DeviceEventArgs e)

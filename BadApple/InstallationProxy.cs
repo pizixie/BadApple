@@ -22,7 +22,7 @@ namespace BadApple
         {
             lock (sync)
             {
-                PListRoot send_plist = CreateBrowsePlist();
+                var send_plist = CreateBrowsePlist();
 
                 PropertyListService.Send(sd, send_plist);
 
@@ -33,8 +33,7 @@ namespace BadApple
                 {
                     browsing = false;
 
-                    PListRoot recv_plist = PropertyListService.Receive(sd);
-                    var dic = recv_plist.Root as PListDict;
+                    var dic = PropertyListService.Receive(sd) as PListDict;
 
                     var status = (dic["Status"] as PListString).Value;
 
@@ -58,7 +57,7 @@ namespace BadApple
             }
         }
 
-        private PListRoot CreateBrowsePlist()
+        private PListDict CreateBrowsePlist()
         {
             PListArray attr = new PListArray();
             attr.Add(new PListString("CFBundleIdentifier"));
@@ -72,15 +71,11 @@ namespace BadApple
             options.Add("ReturnAttributes", attr);
             options.Add("ApplicationType", new PListString("Any"));//User|System|Any
 
-            PListDict root = new PListDict();
-            root.Add("ClientOptions", options);
-            root.Add("Command", new PListString("Browse"));
+            PListDict dict = new PListDict();
+            dict.Add("ClientOptions", options);
+            dict.Add("Command", new PListString("Browse"));
 
-            PListRoot plist = new PListRoot();
-            plist.Format = PListFormat.Xml;
-            plist.Root = root;
-
-            return plist;
+            return dict;
         }
 
         public int InstallApplication(string path, InstallAppCallback callback)

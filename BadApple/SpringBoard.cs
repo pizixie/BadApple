@@ -17,23 +17,19 @@ namespace BadApple
             this.sd = sd;
         }
 
-        public PListRoot GetIconState()
+        public PListDict GetIconState()
         {
             lock (sync)
             {
                 PListDict root = new PListDict();
                 root.Add("command", new PListString("getIconState"));
                 root.Add("formatVersion", new PListString("2"));
+                
+                PropertyListService.Send(sd, root);
 
-                PListRoot send_plist = new PListRoot();
-                send_plist.Format = PListFormat.Xml;
-                send_plist.Root = root;
+                var recv_plist = PropertyListService.Receive(sd);
 
-                PropertyListService.Send(sd, send_plist);
-
-                PListRoot recv_plist = PropertyListService.Receive(sd);
-
-                return recv_plist;
+                return recv_plist as PListDict;
             }
         }
 
@@ -42,7 +38,7 @@ namespace BadApple
             throw new NotImplementedException();
         }
 
-        public PListRoot GetIconPNGData(string bundle_id)
+        public PListDict GetIconPNGData(string bundle_id)
         {
             lock (sync)
             {
@@ -50,15 +46,11 @@ namespace BadApple
                 root.Add("command", new PListString("getIconPNGData"));
                 root.Add("bundleId", new PListString(bundle_id));
 
-                PListRoot out_plist = new PListRoot();
-                out_plist.Format = PListFormat.Xml;
-                out_plist.Root = root;
+                PropertyListService.Send(sd, root);
 
-                PropertyListService.Send(sd, out_plist);
+                var recv = PropertyListService.Receive(sd);
 
-                PListRoot in_plist = PropertyListService.Receive(sd);
-
-                return in_plist;
+                return recv as PListDict;
             }
         }
 
@@ -69,22 +61,17 @@ namespace BadApple
                 PListDict dict = new PListDict();
                 dict.Add("command", new PListString("getInterfaceOrientation"));
 
-                PListRoot send = new PListRoot();
-                send.Format = PListFormat.Xml;
-                send.Root = dict;
+                PropertyListService.Send(sd, dict);
 
-                PropertyListService.Send(sd, send);
+                var recv = PropertyListService.Receive(sd) as PListDict;
 
-                var recv = PropertyListService.Receive(sd);
-
-                var content = recv.Root as PListDict;
-                var v = content["interfaceOrientation"] as PListInteger;
+                var v = recv["interfaceOrientation"] as PListInteger;
 
                 return (InterfaceOrientation)v.Value;
             }
         }
 
-        public PListRoot GetHomeScreenWallpaperPNGData()
+        public PListDict GetHomeScreenWallpaperPNGData()
         {
             //throw new NotImplementedException();
             lock (sync)
@@ -92,15 +79,11 @@ namespace BadApple
                 PListDict dict = new PListDict();
                 dict.Add("command", new PListString("getHomeScreenWallpaperPNGData"));
 
-                PListRoot send = new PListRoot();
-                send.Format = PListFormat.Xml;
-                send.Root = dict;
+                PropertyListService.Send(sd, dict);
 
-                PropertyListService.Send(sd, send);
+                var recv = PropertyListService.Receive(sd);
 
-                PListRoot recv = PropertyListService.Receive(sd);
-
-                return recv;
+                return recv as PListDict;
             }
         }
 

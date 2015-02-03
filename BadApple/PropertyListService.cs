@@ -11,13 +11,16 @@ namespace BadApple
 {
     public static class PropertyListService
     {
-        public static void Send(IntPtr fd, PListRoot plist)
+        public static void Send(IntPtr fd, IPListElement plist)
         {
+            PListRoot root = new PListRoot();
+            root.Root = plist;
+
             byte[] buffer;
 
             using (MemoryStream stream = new MemoryStream())
             {
-                plist.Save(stream, PListFormat.Xml);
+                root.Save(stream, PListFormat.Xml);
                 buffer = stream.ToArray();
             }
 
@@ -35,7 +38,7 @@ namespace BadApple
                 throw new PlistServiceException("发送数据失败");
         }
 
-        public static PListRoot Receive(IntPtr fd)
+        public static IPListElement Receive(IntPtr fd)
         {
             int bytes = 0;
             IntPtr p_length = IntPtr.Zero;
@@ -73,13 +76,11 @@ namespace BadApple
                 byte[] content = new byte[length];
                 Marshal.Copy(p_content, content, 0, length);
 
-                PListRoot plist;
                 using (MemoryStream stream = new MemoryStream(content))
                 {
-                    plist = PListRoot.Load(stream);
+                    PListRoot plist = PListRoot.Load(stream);
+                    return plist.Root;
                 }
-
-                return plist;
             }
             finally
             {
