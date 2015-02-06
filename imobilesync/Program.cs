@@ -1,4 +1,5 @@
 ﻿using BadApple;
+using PList;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,9 +29,28 @@ namespace imobilesync
 
             var sd_sync = lockdown.StartService("com.apple.mobilesync");
 
-            var dl = new DeviceLinkService(sd_sync);
-            dl.device_link_service_version_exchange(300, 100);
+            //var dl = new DeviceLinkService(sd_sync);
+            //dl.device_link_service_version_exchange(300, 100);
+
+            //MobileSync sync = new MobileSync(sd_sync);
+
+            eti_sync eti = new eti_sync(sd_sync);
+
+            eti.eti_sync_start_sync();
+            var c = eti.eti_sync_get_contacts();
+
+            var contacts = new Dictionary<string, EtiContact>();
+
+            contacts.Add("6", new EtiContact()
+            {
+                first_name = "pizixie",
+                first_name_yomi = "yomi",
+                middle_name = " "
+            });
+
+            eti.eti_sync_send_contacts(contacts);
         }
+
 
         static void DeviceMonitor_Disconnected(object sender, DeviceEventArgs e)
         {
