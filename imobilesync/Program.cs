@@ -32,7 +32,9 @@ namespace imobilesync
             //var dl = new DeviceLinkService(sd_sync);
             //dl.device_link_service_version_exchange(300, 100);
 
-            //MobileSync sync = new MobileSync(sd_sync);
+            MobileSync sync = new MobileSync(sd_sync);
+
+            msyncclient.mobilesync_get_all_contacts(sync);
 
             eti_sync eti = new eti_sync(sd_sync);
 
