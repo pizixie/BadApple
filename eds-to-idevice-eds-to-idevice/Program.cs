@@ -1,12 +1,11 @@
 ﻿using BadApple;
-using PList;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace imobilesync
+namespace eds_to_idevice_eds_to_idevice
 {
     class Program
     {
@@ -29,12 +28,23 @@ namespace imobilesync
 
             var sd_sync = lockdown.StartService("com.apple.mobilesync");
 
-            //var dl = new DeviceLinkService(sd_sync);
-            //dl.device_link_service_version_exchange(300, 100);
+            eti_sync eti = new eti_sync(sd_sync);
 
-            MobileSync sync = new MobileSync(sd_sync);
+            eti.eti_sync_start_sync();
+            var c = eti.eti_sync_get_contacts();
 
-            msyncclient.mobilesync_get_all_contacts(sync);
+            var contacts = new Dictionary<string, EtiContact>();
+
+            contacts.Add("6", new EtiContact()
+            {
+                first_name = "pizixie",
+                first_name_yomi = "yomi",
+                middle_name = " "
+            });
+
+            eti.eti_sync_send_contacts(contacts);
+
+            eti.eti_sync_stop_sync();
         }
 
 

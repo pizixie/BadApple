@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace imobilesync
+namespace eds_to_idevice_eds_to_idevice
 {
     class eti_contact_plist_builder
     {
@@ -27,9 +27,9 @@ namespace imobilesync
                 main_info.Add("middle name", new PListString(contact.middle_name));
                 //... lat name,nickname,title,suffix
 
-                birthday = contact.birthday;
+                //birthday = contact.birthday;
 
-                main_info.Add("birthday", new PListDate(birthday));
+                //main_info.Add("birthday", new PListDate(birthday));
 
                 //main_info.Add("image", new PListData(contact.photo.image_data));
 

@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{595C68F8-669B-4D2B-947D-2757FAE14212}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{31C4419C-3164-42F5-A35E-F6ACAA7375D1}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BadApple</RootNamespace>
-    <AssemblyName>BadApple</AssemblyName>
+    <RootNamespace>eds_to_idevice_eds_to_idevice</RootNamespace>
+    <AssemblyName>eds-to-idevice-eds-to-idevice</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,9 +21,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -31,11 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreFoundation-wrapper">
-      <HintPath>..\..\CoreFoundation\Project\bin\Debug\CoreFoundation-wrapper.dll</HintPath>
-    </Reference>
-    <Reference Include="PList, Version=0.1.4109.38751, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PList">
       <HintPath>..\packages\plist.net.1.0\lib\Net35\PList.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -47,21 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeviceLinkService.cs" />
-    <Compile Include="InstallationProxy.cs" />
-    <Compile Include="MobileSync.cs" />
-    <Compile Include="Native\AMDevice.cs" />
-    <Compile Include="Native\AMDeviceNotificationCallbackInfo.cs" />
-    <Compile Include="DeviceMonitor.cs" />
-    <Compile Include="Native\DeviceNotificationCallback.cs" />
-    <Compile Include="Native\InstallAppCallback.cs" />
-    <Compile Include="Native\iTunesMobileDevice.cs" />
-    <Compile Include="Lockdown.cs" />
-    <Compile Include="Native\NotificationMessage.cs" />
-    <Compile Include="PListExtensions.cs" />
+    <Compile Include="eti-contact.cs" />
+    <Compile Include="eti-sync.cs" />
+    <Compile Include="eti_contact_plist_builder.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyListService.cs" />
-    <Compile Include="SpringBoard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BadApple\BadApple.csproj">
+      <Project>{595c68f8-669b-4d2b-947d-2757fae14212}</Project>
+      <Name>BadApple</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
