@@ -13,3 +13,6 @@ lockdown部分参考[MobileDevice](https://github.com/nivalxer/MobileDevice)，�
 4. 设备同步
     * 联系人
     * ~音乐、视频等~
+
+项目依赖plist、[CoreFoundtion](https://github.com/isnowrain/CoreFoundation)
+解决了CFString不支持中文的问题。
