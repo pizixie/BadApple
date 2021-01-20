@@ -12,4 +12,6 @@ lockdown部分参考[MobileDevice](https://github.com/nivalxer/MobileDevice)，�
     * ~音乐、视频等~
 
 项目依赖plist、[CoreFoundtion](https://github.com/isnowrain/CoreFoundation)
+
+已处理问题：
 解决了CFString不支持中文的问题。
