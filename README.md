@@ -1,8 +1,5 @@
 # BadApple
 
-实现Windows上对iOS设备的管理
-
-
 协议部分参考[libimobiledevice](https://github.com/libimobiledevice/libimobiledevice)<br>
 lockdown部分参考[MobileDevice](https://github.com/nivalxer/MobileDevice)，使用iTunesMobileDevice.dll，这与libimobiledevice不同。
 
